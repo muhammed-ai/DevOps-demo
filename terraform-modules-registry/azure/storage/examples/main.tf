@@ -17,7 +17,7 @@ module "storage_account" {
       project = "cloudops"
       location = "southcentralus"
       resource_group_name = "ibrahim-demoRG"
-      subnet_id       = "/subscriptions/306eb98e-26d5-4606-b5bc-c57350db64b8/resourceGroups/NetworkRG/providers/Microsoft.Network/virtualNetworks/vnet-platformdep-nonprod-sc01"
+      subnet_id       = "/subscriptions/"
     environment = "test"
     additional_tags = {
       "Owner"      = "EnterpriseCloudOps@bnsf.com"
