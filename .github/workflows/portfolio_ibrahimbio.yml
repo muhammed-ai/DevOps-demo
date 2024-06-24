@@ -41,7 +41,7 @@ jobs:
         run: |
           mkdir deploy
           cp app.py deploy/
-          cp -r templates deploy/
+          cp -r template deploy/
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
