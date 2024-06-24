@@ -74,3 +74,6 @@ jobs:
           app-name: 'ibrahimbio'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E99CF3E01589489EA75A520FC1DBDDE2 }}
+          package: |
+            app.py
+            templates/index.html
