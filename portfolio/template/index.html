@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Muhammed Ibrahim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77d42a 3px solid;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px;
+        }
+        header #branding {
+            float: left;
+            cursor: pointer;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        #showcase {
+            min-height: 400px;
+            background: url('showcase.jpg') no-repeat 0 -400px;
+            text-align: center;
+            color: #000;
+            padding-top: 70px;
+        }
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        #showcase p {
+            font-size: 20px;
+            color: #000;
+        }
+        #main {
+            flex: 1;
+            padding: 20px;
+            background: #fff;
+        }
+        .section {
+            margin-bottom: 50px; /* Adjust spacing between sections */
+            display: none; /* Hide all sections initially */
+        }
+        .section.active {
+            display: block; /* Show the active section */
+        }
+        .dark {
+            padding: 15px;
+            background: #35424a;
+            color: #fff;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto; /* Push footer to bottom */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding" onclick="scrollToMainPage()">
+                <h1><span class="highlight">Muhammed Ibrahim</span> - DevOps Engineer</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showSection('showcase')">Home</a></li>
+                    <li><a href="#" onclick="showSection('education')">Education</a></li>
+                    <li><a href="#" onclick="showSection('experience')">Experience</a></li>
+                    <li><a href="#" onclick="showSection('skills')">Skills & Certifications</a></li>
+                    <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="showcase" class="container">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Explore my educational background, experience, and skills in DevOps Engineering.</p>
+        
+        <h2>Profile Synopsis</h2>
+        <ul>
+            Result-oriented and accomplished IT professional with over 8 years of experience
+            Specializing as a Cloud Engineer with 5+ years of hands-on expertise in architecting cloud solutions and optimizing application performance.
+            Outstanding analytical, problem-solving, and organizational skills are combined with a strong sense of leadership and interpersonal skills to create an effective communicator.
+            Skilled in infrastructure as code, monitoring and alerting systems, and implementing robust security policies and procedures.
+            Designed deployment of Azure resources for the Landing Zones with all the best practices.
+            Develop and maintain an enterprise architectural plan that is in line with technological changes and business goals.
+            Strong experience with infrastructure as code and configuration management tools such as Terraform, Ansible.
+            Extensive experience in developing and maintaining CI/CD pipelines using tools such as Jenkins, Maven, Docker, Nexus, Artifactory, Slack, and Azure pipelines.
+            Extensive experience in distributed Agile and Scrum methodologies to develop best practices for software development and implementation.
+            Conducted deep dives into reliability issues, incident management, and troubleshoot performance, security, and connectivity issues for virtual machines and Azure (AKS) environments.
+        </ul>
+        
+    </section>
+
+    <section id="education" class="container section active">
+        <h2>Education</h2>
+        <p>Master of Cyber Security - Current</p>
+        <p>Bachelor of Computer Science</p>
+    </section>
+
+    <section id="experience" class="container section">
+        <h2>Experience Snapshot</h2>
+        <p>Details of the roles and companies Muhammed has worked with.</p>
+        <ul>
+            <li>BNSF Railway: May 2023 - Current</li>
+            <li>Johnson Controls: March 2021 - April 2023</li>
+            <li>Morgan Stanley: Aug 2019 - Feb 2021</li>
+            <li>Rich Products: Jun 2016 - Jul 2019</li>
+        </ul>
+    </section>
+
+    <section id="skills" class="container section">
+        <h2>Certifications</h2>
+        <ul>
+            <li>CompTIA Security+</li>
+            <li>CompTIA Linux+</li>
+            <li>Azure Administrator Associate</li>
+            <li>AWS Certified Solutions Architect Associate</li>
+            <li>AWS Solution Architect</li>
+        </ul>
+        <h2>Technical Skills</h2>
+        <ul>
+            <li>Cloud Computing (AWS, Azure)</li>
+            <li>Containerization (Docker, Kubernetes)</li>
+            <li>Automation (Ansible, Terraform)</li>
+            <li>Agile Methodologies (Scrum, Kanban)</li>
+            <li>Version Control (Git)</li>
+            <li>CI/CD (Jenkins, Azure Pipeline)</li>
+            <li>Scripting (Python, Golang)</li>
+        </ul>
+    </section>
+
+    <section id="contact" class="container section">
+        <h2>Contact</h2>
+        <p>Pending to update contact info 🔜.</p>
+    </section>
+
+    <footer>
+        <p>Muhammed Ibrahim &copy; 2024</p>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
