@@ -1,0 +1,3 @@
+Flask==2.0.2  # Replace with your web framework version if using Flask
+Jinja2==3.0.2  # Template engine often used with Flask
+requests==2.26.0  # If your application makes HTTP requests
