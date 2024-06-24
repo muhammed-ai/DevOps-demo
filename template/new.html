@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Muhammed Ibrahim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            line-height: 1.0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            flex: 1;
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77d42a 3px solid;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header h1 {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+        header p {
+            margin: 0;
+            font-size: 18px;
+        }
+        nav {
+            background: #444;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            position: sticky;
+            top: 70px;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a:hover {
+            color: #77d42a;
+        }
+        section {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+            border-bottom: #77d42a 2px solid;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            display: block;
+            margin-top: auto;
+        }
+        footer a {
+            color: #77d42a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Muhammed Ibrahim</h1>
+        <p>DevOps Engineer</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#profile">Profile Synopsis</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills & Certifications</a></li>
+            <li><a href="#competencies">Core Competencies</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="profile">
+            <h2>Profile Synopsis</h2>
+            <ul>
+                <li>Result-oriented and accomplished IT professional with over 8 years of experience</li>
+                <li>Specializing as a Cloud Engineer with 5+ years of hands-on expertise in architecting cloud solutions and optimizing application performance.</li>
+                <li>Outstanding analytical, problem-solving, and organizational skills combined with a strong sense of leadership and interpersonal skills to create an effective communicator.</li>
+                <li>Skilled in infrastructure as code, monitoring and alerting systems, and implementing robust security policies and procedures.</li>
+                <li>Designed deployment of Azure resources for the Landing Zones with all the best practices.</li>
+                <li>Develop and maintain an enterprise architectural plan that is in line with technological changes and business goals.</li>
+                <li>Strong experience with infrastructure as code and configuration management tools such as Terraform, Ansible.</li>
+                <li>Extensive experience in developing and maintaining CI/CD pipelines using tools such as Jenkins, Maven, Docker, Nexus, Artifactory, Slack, and Azure pipelines.</li>
+                <li>Extensive experience in distributed Agile and Scrum methodologies to develop best practices for software development and implementation.</li>
+                <li>Conducted deep dives into reliability issues, incident management, and troubleshooting performance, security, and connectivity issues for virtual machines and Azure (AKS) environments.</li>
+            </ul>
+        </section>
+
+        <section id="experience">
+            <h2>Experience Snapshot</h2>
+            <ul>
+                <li>BNSF Railway: May 2023 – Current</li>
+                <li>Johnson Controls: Mar 2021 – Apr 2023</li>
+                <li>Morgan Stanley: Aug 2019 – Feb 2021</li>
+                <li>Rich Products: June 2016 – Jul 2019</li>
+            </ul>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <ul>
+                <li>Master of Cyber Security - Current</li>
+                <li>Bachelor of Computer Science</li>
+            </ul>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Skills & Certifications</h2>
+            <ul>
+                <li>CompTIA Security+</li>
+                <li>CompTIA Linux+</li>
+                <li>Azure Administrator Associate</li>
+                <li>AWS Certified Solutions Architect Associate</li>
+                <li>AWS Solution Architect Associate</li>
+                <li>Cisco CCNA</li>
+            </ul>
+        </section>
+
+        <section id="competencies">
+            <h2>Core Competencies</h2>
+            <ul>
+                <li>Agile</li>
+                <li>CI/CD tools (Jenkins, Azure Pipeline)</li>
+                <li>Shell & Python Scripting</li>
+                <li>Monitoring tools</li>
+                <li>Database management (MS SQL, PostgreSQL)</li>
+                <li>Data ingestion (Logz.io)</li>
+                <li>Serverless</li>
+                <li>Azure DevOps</li>
+                <li>Azure Kubernetes</li>
+                <li>Infrastructure As Code</li>
+                <li>Performance Optimization</li>
+                <li>Resource Management</li>
+                <li>Configuration Management</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>Muhammed Ibrahim &copy; 2024</p>
+        <p><a href="https://ibratech.com">ibratech.com</a></p>
+    </footer>
+</body>
+</html>
