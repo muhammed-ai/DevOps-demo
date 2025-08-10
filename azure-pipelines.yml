@@ -1,0 +1,100 @@
+pr:
+  branches:
+    include:
+      - '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  # The Key Vault task will populate these secrets as pipeline variables
+  - name: OPENAI-ENDPOINT
+    value: ''
+  - name: OPENAI-KEY
+    value: ''
+  - name: OPENAI-DEPLOYMENT
+    value: ''
+
+steps:
+- task: AzureKeyVault@2
+  displayName: 'Download OpenAI secrets from Key Vault'
+  inputs:
+    azureSubscription: 'MyKeyVaultServiceConnection'   # service connection name
+    KeyVaultName: 'kv-ai-cicd'
+    SecretsFilter: 'OPENAI-ENDPOINT,OPENAI-KEY,OPENAI-DEPLOYMENT'
+    RunAsPreJob: false
+
+- checkout: self
+  displayName: 'Checkout source'
+
+- script: |
+    set -euo pipefail
+    echo "SYSTEM_PULLREQUEST_TARGETBRANCH=$SYSTEM_PULLREQUEST_TARGETBRANCH"
+    # Extract branch name from refs/heads/...
+    TARGET_BRANCH=${SYSTEM_PULLREQUEST_TARGETBRANCH#refs/heads/}
+    echo "Target branch: $TARGET_BRANCH"
+
+    # Ensure we have the target branch locally
+    git fetch origin $TARGET_BRANCH || git fetch origin "+refs/heads/$TARGET_BRANCH:refs/remotes/origin/$TARGET_BRANCH"
+
+    # Create a compact unified diff (small context) to keep token usage reasonable
+    git diff --unified=0 origin/$TARGET_BRANCH...HEAD > pr_patch.diff || true
+    git --no-pager diff --name-status origin/$TARGET_BRANCH...HEAD > pr_files.txt || true
+
+    # Trim the diff if too large (safety)
+    MAX_BYTES=150000
+    if [ $(wc -c < pr_patch.diff) -gt $MAX_BYTES ]; then
+      echo "Diff too large, reducing to file list + top hunks"
+      head -c $MAX_BYTES pr_patch.diff > pr_patch_trimmed.diff
+      PATCH_TO_SEND=$(cat pr_files.txt; echo; echo " (full diff truncated — see pipeline artifact)")
+    else
+      PATCH_TO_SEND=$(cat pr_patch.diff)
+    fi
+
+    # Prepare JSON payload for Azure OpenAI (escape newlines)
+    DIFF_ESCAPED=$(printf '%s' "$PATCH_TO_SEND" | python3 -c "import sys, json; print(json.dumps(sys.stdin.read()))")
+    # DIFF_ESCAPED is a quoted JSON string; remove leading/trailing quotes before embedding
+    DIFF_ESCAPED=${DIFF_ESCAPED:1:-1}
+
+    # Call Azure OpenAI (chat completions). Provide a system prompt to shape output.
+    OPENAI_URL="${OPENAI-ENDPOINT}/openai/deployments/${OPENAI-DEPLOYMENT}/chat/completions?api-version=2024-10-01"
+    echo "Calling Azure OpenAI at $OPENAI-URL (deployment ${OPENAI-DEPLOYMENT})"
+
+    AI_RESPONSE=$(curl -s -X POST "$OPENAI_URL" \
+      -H "Content-Type: application/json" \
+      -H "api-key: $OPENAI-KEY" \
+      -d "{
+        \"messages\": [
+          {\"role\":\"system\",\"content\":\"You are an experienced code reviewer. Provide a short summary of the changes and 3 actionable suggestions to improve the code, plus possible bugs or security issues.\"},
+          {\"role\":\"user\",\"content\":\"Here is the PR diff:\\n$DIFF_ESCAPED\"}
+        ],
+        \"max_tokens\": 600
+      }")
+
+    echo "AI response received"
+    echo $AI_RESPONSE | jq -r '.choices[0].message.content' > ai_comment.txt
+    AI_COMMENT=$(cat ai_comment.txt)
+
+    # Post comment to PR using Azure DevOps REST API
+    echo "Posting comment to PR $SYSTEM_PULLREQUEST_PULLREQUESTID"
+    ORG_URL="$SYSTEM_COLLECTIONURI"   # includes trailing slash like https://dev.azure.com/org/
+    PROJECT="$SYSTEM_TEAMPROJECT"
+    REPO_ID="$BUILD_REPOSITORY_ID"
+    PR_ID="$SYSTEM_PULLREQUEST_PULLREQUESTID"
+    API_URL="${ORG_URL}${PROJECT}/_apis/git/repositories/${REPO_ID}/pullRequests/${PR_ID}/threads?api-version=7.1"
+
+    # Build JSON payload for thread
+- script: |
+    read -r -d '' PAYLOAD << 'EOF'
+    {
+      "comments": [
+        {
+          "parentCommentId": 0,
+          "content": "$(echo "$AI_COMMENT" | sed 's/"/\\"/g')",
+          "commentType": 1
+        }
+      ],
+      "status": "active"
+    }
+    EOF
+
